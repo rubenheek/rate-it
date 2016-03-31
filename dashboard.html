@@ -1,0 +1,135 @@
+<md-toolbar>
+ <div class="md-toolbar-tools">
+  <i class="material-icons icon-padding-right">star</i>
+  <span>Rate-it</span>
+  <span flex></span>
+  <md-menu md-position-mode="target-right target">
+   <md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="openMenuButton">
+    <img md-menu-origin ng-src="{{userObject.profilePictureUrl}}"></img>
+   </md-button>
+   <md-menu-content width="4">
+    <md-menu-item>
+     <md-button class="md-warn" ng-click="logout()">
+      <p>Logout</p>
+      <i class="material-icons menu-item-icon">exit_to_app</i>
+     </md-button>
+    </md-menu-item>
+   </md-menu-content>
+  </md-menu>
+ </div>
+</md-toolbar>
+
+<md-progress-linear class="rate-it-loader md-accent" ng-if="!loadedEvents" md-mode="indeterminate"></md-progress-linear>
+
+<div layout-align="center center" layout="row">
+ <i class="material-icons icon-padding">search</i>
+ <div layout="row" flex>
+  <md-input-container class="no-padding" flex>
+   <label>Search event</label>
+   <input class="no-padding" ng-model="filterText"></input>
+  </md-input-container>
+  <md-menu md-position-mode="target-right target">
+   <md-button class="md-icon-button" ng-click="$mdOpenMenu()">
+    <i class="material-icons" md-menu-origin>sort</i>
+    <md-tooltip>Filter / sort</md-tooltip>
+   </md-button>
+   <md-menu-content width="4">
+    <label>Filter</label>
+    <md-menu-item>
+     <md-button ng-class="classAll" ng-click="filterOwner(ownerId)">All events</md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button ng-class="classOwn" ng-click="filterOwner(userObject.$id)">Events created by you</md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button ng-class="classOthers" ng-click="filterOwner(userObject.$id, true)">Events created by others</md-button>
+    </md-menu-item>
+    <label>Sort</label>
+    <md-menu-item>
+     <md-button ng-class="classMR" ng-click="order('creationDate', true); setCurrentSortClass('md-primary', '', '', '');">Date: most recent</md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button ng-class="classLR" ng-click="order('creationDate', false); setCurrentSortClass('', 'md-primary', '', '');">Date: least recent</md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button ng-class="classAZ" ng-click="order('eventName', false); setCurrentSortClass('', '', 'md-primary', '');">Event name: A - Z</md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button ng-class="classZA" ng-click="order('eventName', true); setCurrentSortClass('', '', '', 'md-primary');">Event name: Z - A</md-button>
+    </md-menu-item>
+   </md-menu-content>
+  </md-menu>
+ </div>
+ <md-menu class="no-padding" md-position-mode="target-right target">
+  <md-button class="md-fab md-mini" ng-click="$mdOpenMenu()">
+   <i class="material-icons">add</i>
+   <md-tooltip>Create / join</md-tooltip>
+  </md-button>
+  <md-menu-content width="4">
+   <md-menu-item>
+    <md-button ng-click="showCreateEventDialog()">Create event</md-button>
+   </md-menu-item>
+   <md-menu-item>
+    <md-button ng-click="showJoinEventDialog()">Join event</md-button>
+   </md-menu-item>
+  </md-menu-content>
+ </md-menu>
+</div>
+
+<md-divider></md-divider>
+
+<div>
+ <div layout="row" layout-wrap>
+  <p class="average-padding" ng-if="loadedEvents && userObject.events && !results.length">No results</p>
+  <md-card class="rate-it-card" ng-repeat="event in myEvents | filter:{eventName:filterText} | filter:{ownerId:ownerFilter} | orderBy:orderFilter:reverse as results">
+   <md-toolbar class="md-toolbar-tools site-content-toolbar">
+    <span>{{event.eventName}}</span>
+    <span flex></span>
+    <md-button class="md-icon-button" ng-click="showShareDialog(event.$id)">
+     <i class="material-icons">share</i>
+     <md-tooltip>Share</md-tooltip>
+    </md-button>
+   </md-toolbar>
+   <md-card-content>
+    <md-list class="list-padding">
+     <md-list-item class="md-2-line">
+      <md-icon class="material-icons">event_note</md-icon>
+      <div class="md-list-item-text">
+       <h3><rate-it-username uid="{{event.ownerId}}" ownuid="{{userObject.$id}}"></rate-it-username></h3>
+       <p>{{event.creationDate}}</p>
+      </div>
+     </md-list-item>
+     <md-list-item>
+      <md-icon class="material-icons">vpn_key</md-icon>
+      <p>{{event.$id}}</p>
+     </md-list-item>
+     <md-list-item>
+      <h1 class="icon-padding-right"><rate-it-score score="event.avgRating"></rate-it-score></h1>
+      <p class="participants-margin" ng-if="!event.participants.length">No participants</p>
+      <div ng-repeat="participant in event.participants | limitTo:3">
+       <rate-it-usericon uid="{{participant}}"></rate-it-usericon>
+       <md-tooltip><rate-it-username uid="{{participant}}" ownuid="{{userObject.$id}}"></rate-it-username></md-tooltip>
+      </div>
+      <div class="much-participants" ng-if="event.participants.length > 3">
+       <p>+{{event.participants.length - 3}}</p>
+      </div>
+     </md-list-item>
+    </md-list>
+    <div layout="row" layout-wrap>
+     <md-button class="md-primary md-raised" ng-click="linkToPage(event.$id, '/rate')">Rate</md-button>
+     <md-button class="md-primary" ng-click="linkToPage(event.$id, '/overview')">Overview</md-button>
+     <span flex></span>
+     <md-button class="md-icon-button" ng-click="deleteEvent(event.$id)">
+      <i class="material-icons">delete</i>
+      <md-tooltip>Delete</md-tooltip>
+     </md-button>
+    </div>
+   </md-card-content>
+  </md-card>
+ </div>
+</div>
+
+<div class="average-padding" ng-show="loadedEvents && !userObject.events">
+ <p>You haven't created or joined events yet</p>
+ <p>Start by clicking on the pink button at the right top</p>
+</div>

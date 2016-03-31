@@ -1,0 +1,28 @@
+<md-dialog>
+ <md-toolbar class="md-toolbar-tools site-content-toolbar">
+ <i class="material-icons icon-padding-right">share</i>
+  <span>Share rating menu link</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="cancel()">
+   <i class="material-icons grey-cancel-button">clear</i>
+   <md-tooltip>Cancel</md-tooltip>
+  </md-button>
+ </md-toolbar>
+ <md-dialog-content>
+  <div layout="column">
+    <p class="event-key">{{shareLink}}</p>
+   <md-button class="rate-it-share-button facebook" socialshare socialshare-provider="facebook" socialshare-url="{{shareLink}}">
+    <i class="fa fa-facebook share-icon-padding"></i>Facebook
+   </md-button>
+   <md-button class="rate-it-share-button twitter" socialshare socialshare-provider="twitter" socialshare-url="{{shareLink}}">
+    <i class="fa fa-twitter share-icon-padding"></i>Twitter
+   </md-button>
+   <md-button class="rate-it-share-button google-plus" socialshare socialshare-provider="google+" socialshare-url="{{shareLink}}">
+    <i class="fa fa-google-plus share-icon-padding"></i>Google+
+   </md-button>
+   <md-button class="rate-it-share-button linkedin" socialshare socialshare-provider="linkedin" socialshare-url="{{shareLink}}">
+    <i class="fa fa-linkedin share-icon-padding"></i>Linkedin
+   </md-button>
+  </div>
+ </md-dialog-content>
+</md-dialog>

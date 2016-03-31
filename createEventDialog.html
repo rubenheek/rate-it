@@ -1,0 +1,27 @@
+<md-dialog>
+ <md-toolbar class="md-toolbar-tools card-toolbar">
+  <i class="material-icons icon-padding-right">receipt</i>
+  <span>Create event</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="cancel()">
+   <i class="material-icons">clear</i>
+   <md-tooltip>Cancel</md-tooltip>
+  </md-button>
+ </md-toolbar>
+ <md-dialog-content>
+  <form ng-submit="startEvent(eventName)">
+   <md-input-container>
+    <label>Event name</label>
+    <input ng-model="eventName" autofocus>
+    <div ng-messages>
+     <div ng-message="required" ng-show="eventName.length > 20">Try a shorter name</div>
+    </div>
+   </md-input-container>
+   <md-input-container>
+    <label>Event ID</label>
+    <input ng-model="eventId" readonly>
+   </md-input-container>
+   <md-button class="md-primary md-raised" ng-disabled="!eventName || !eventId || (eventName.length > 20)">Create event</md-button>
+  </form>
+ </md-dialog-content>
+</md-dialog>

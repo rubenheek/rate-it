@@ -1,0 +1,217 @@
+body {
+    overflow-y: auto !important;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.icon-padding-left {
+	padding-left: 16px;
+}
+
+.icon-padding-right {
+	padding-right: 16px;
+}
+
+.share-icon-padding {
+	padding: 8px;
+}
+
+.icon-padding {
+	padding: 16px;
+}
+
+.md-icon-button img {
+	width: 100%;
+}
+
+.card-toolbar {
+	border-radius: 4px 4px 0 0;
+}
+
+.inline {
+	display: inline;
+}
+
+.tab {
+	padding-left: 80px;
+}
+
+.margin-auto {
+	margin: auto;
+}
+
+.text-align {
+	text-align: center;
+}
+
+.list-padding {
+	padding: 0px;
+}
+
+.no-padding {
+	padding: 0px !important;
+}
+
+.margin-tab-content {
+	margin: 8px;
+}
+
+.average-padding {
+	padding: 16px;
+}
+
+.rating-style {
+	font-size: 180px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.start-div {
+	height: 100%;
+	margin-top: -64px;
+}
+
+rate-it-score {
+	font-weight: 700;
+}
+
+.rate-it-average {
+	font-size: 100px;
+	margin: 16px;
+}
+
+.site-content-toolbar {
+  background: #f6f6f6 !important;
+  color: #666 !important;
+  z-index: 3;
+}
+
+.rate-it-loader {
+	top: -5px;
+}
+
+@media screen and (max-width: 564px) {
+	.rate-it-card {
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+}
+
+@media screen and (min-width: 565px) and (max-width: 648px) {
+	.rate-it-card {
+		width: 47%;
+	}
+}
+
+@media screen and (min-width: 648px) {
+	.rate-it-card {
+		width: 300px;
+	}
+}
+
+.rate-it-small-icon {
+	border-radius: 100%;
+	margin: auto;
+	padding: 1px;
+	vertical-align: middle;
+	height: 24px;
+	width: 24px;
+}
+
+.rate-it-share-button {
+	text-align: left;
+}
+
+.grey-cancel-button {
+	color: #666 !important;
+}
+
+.facebook {
+	background-color: #3b5998;
+	color: #ffffff;
+}
+
+.twitter {
+	background-color: #1dcaff;
+	color: #ffffff;
+}
+
+.google-plus {
+	background-color: #dd4b39;
+	color: #ffffff;
+}
+
+.linkedin {
+	background-color: #0077b5;
+	color: #ffffff;
+}
+
+.full-height {
+	height: 100%;
+}
+
+.menu-item-icon {
+	padding: 12px 0px 12px 12px;
+}
+
+.fixed-bottom {
+	position: fixed;
+	bottom: 0px;
+}
+
+.tt-input {
+	position: fixed;
+    bottom: 0px;
+    width: 100%;
+    margin: 0px;
+    padding: 8px;
+    background-color: #f6f6f6;
+    border-top: 2px solid lightgrey;
+}
+
+.tt-input md-input-container {
+	padding-bottom: 2px;
+}
+
+md-toolbar.site-content-toolbar i {
+	color: #666;
+}
+
+.card-link:hover {
+	outline: none;
+	color: #0f97f9;
+	cursor: pointer;
+}
+
+.event-key {
+	text-align: center;
+	margin-top: 0px;
+    font-weight: 700;
+    font-size: small;
+}
+
+.no-padding-bottom {
+	padding-bottom: 0px;
+}
+
+.participants-margin {
+	margin-left: 10px;
+}
+
+.tt-margin {
+	margin-bottom: 70px;
+}
+
+.continue-margin {
+	margin-bottom: 24px;
+}
+
+md-menu-content label {
+	display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 8px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.54);
+}

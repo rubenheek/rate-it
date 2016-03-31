@@ -1,0 +1,100 @@
+<md-toolbar>
+ <div class="md-toolbar-tools">
+  <md-button class="md-icon-button" ng-click="linkToDashboard()">
+   <i class="material-icons">arrow_back</i>
+   <md-tooltip>Dashboard</md-tooltip>
+  </md-button>
+  <span>{{eventObject.eventName || "..."}}</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="showShareDialog(eventObject.$id)">
+   <i class="material-icons">share</i>
+   <md-tooltip>Share</md-tooltip>
+  </md-button>
+  <md-menu md-position-mode="target-right target">
+   <md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="openMenuButton">
+    <img md-menu-origin ng-src="{{userObject.profilePictureUrl}}"></img>
+   </md-button>
+   <md-menu-content width="4">
+    <md-menu-item>
+     <md-button ng-click="linkToDashboard()">
+      <p>Dashboard</p>
+      <i class="material-icons menu-item-icon">dashboard</i>
+     </md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button class="md-warn" ng-click="logout()">
+      <p>Logout</p>
+      <i class="material-icons menu-item-icon">exit_to_app</i>
+     </md-button>
+    </md-menu-item>
+   </md-menu-content>
+  </md-menu>
+ </div>
+</md-toolbar>
+
+<md-tabs class="md-primary" md-selected="selectedTabIndex" md-border-bottom md-dynamic-height>
+
+<md-tab label="Tips">
+ <div class="margin-tab-content tt-margin">
+  <p ng-show="!results.length && loadedItems">No tips ...</p>
+  <div ng-repeat="tip in ratingsObject.tips| filter:{deleted:false} as results track by $index" layout="row">
+   <md-input-container flex>
+    <label>Tip {{$index + 1}}</label>
+    <input ng-model="tip.description" aria-label="tipDescription"></input>
+   </md-input-container>
+   <md-button class="md-icon-button" ng-click="deleteItem(tip)">
+    <i class="material-icons">delete</i>
+    <md-tooltip md-direction="left">Delete tip</md-tooltip>
+   </md-button>
+  </div>
+ </div>
+</md-tab>
+
+<md-tab label="Tops">
+ <div class="margin-tab-content tt-margin">
+  <p ng-show="!results.length && loadedItems">No tops ...</p>
+  <div ng-repeat="top in ratingsObject.tops | filter:{deleted:false} as results track by $index" layout="row">
+   <md-input-container flex>
+   <label>Top {{$index + 1}}</label>
+    <input ng-model="top.description" aria-label="topDescription">
+   </md-input-container>
+   <md-button class="md-icon-button" ng-click="deleteItem(top)">
+    <i class="material-icons">delete</i>
+    <md-tooltip md-direction="left">Delete top</md-tooltip>
+   </md-button>
+  </div>
+ </div>
+</md-tab>
+
+<md-tab label="Rating">
+ <div class="margin-tab-content">
+  <div class="rating-style" layout-align="center center">
+   <rate-it-score score="ratingsObject.rating"></rate-it-score>
+  </div>
+  <md-slider flex md-discrete ng-model="ratingsObject.rating" step="1" min="1" max="10" aria-label="demoRatingSlider"></md-slider>
+ </div>
+</md-tab>
+
+</md-tabs>
+
+<form class="tt-input" ng-submit="addTip()" ng-if="selectedTabIndex == 0" layout="row" flex>
+ <md-input-container flex>
+  <label>Add new tip</label>
+  <input ng-model="newTip.content" autofocus></input>
+ </md-input-container>
+ <md-button class="md-fab md-mini" ng-disabled="!newTip.content">
+  <i class="material-icons">send</i>
+  <md-tooltip>Add tip</md-tooltip>
+ </md-button>
+</form>
+
+<form class="tt-input" ng-submit="addTop()" ng-if="selectedTabIndex == 1" layout="row" flex>
+ <md-input-container flex>
+  <label>Add new top</label>
+  <input ng-model="newTop.content"></input>
+ </md-input-container>
+ <md-button class="md-fab md-mini" ng-disabled="!newTop.content">
+  <i class="material-icons">send</i>
+  <md-tooltip>Add top</md-tooltip>
+ </md-button>
+</form>

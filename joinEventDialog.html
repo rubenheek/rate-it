@@ -1,0 +1,23 @@
+<md-dialog>
+ <md-toolbar class="md-toolbar-tools card-toolbar">
+  <i class="material-icons icon-padding-right">people</i>
+  <span>Join event</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="cancel()">
+   <i class="material-icons">clear</i>
+   <md-tooltip>Cancel</md-tooltip>
+  </md-button>
+ </md-toolbar>
+ <md-dialog-content>
+  <form ng-submit="checkJoinId()">
+   <md-input-container>
+    <label>Event ID</label>
+    <input ng-model="joinId">
+    <div ng-messages>
+     <div ng-message="required" ng-show="wrongJoinId && joinId">Enter a valid event ID</div>
+    </div>
+   </md-input-container>
+   <md-button class="md-primary md-raised" ng-disabled="!joinId">Join event</md-button>
+  </form>
+ </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,37 @@
+<md-dialog>
+ <md-toolbar class="md-toolbar-tools card-toolbar">
+  <span>Sign up</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="cancel()">
+   <i class="material-icons">clear</i>
+   <md-tooltip>Cancel</md-tooltip>
+  </md-button>
+ </md-toolbar>
+ <md-dialog-content>
+
+  <form ng-submit="signUp(email, passwordOne)">
+
+   <md-input-container>
+    <label>Email</label>
+    <input ng-model="email">
+   </md-input-container>
+
+   <md-input-container>
+    <label>Enter password</label>
+    <input type="password" ng-model="passwordOne">
+   </md-input-container>
+
+   <md-input-container>
+    <label>Enter password again</label>
+    <input type="password" ng-model="passwordTwo">
+    <div ng-messages>
+     <div ng-message="required" ng-show="passwordOne && passwordTwo && (passwordOne != passwordTwo)">Enter same password</div>
+    </div>
+   </md-input-container>
+
+   <md-button class="md-primary md-raised" ng-disabled="!email || !passwordOne || !passwordTwo || !(passwordOne == passwordTwo)">Sign up</md-button>
+
+  </form>
+
+ </md-dialog-content>
+</md-dialog>

@@ -1,0 +1,104 @@
+<md-toolbar>
+ <div class="md-toolbar-tools">
+  <md-button class="md-icon-button" ng-click="linkToDashboard()">
+   <i class="material-icons">arrow_back</i>
+   <md-tooltip>Dashboard</md-tooltip>
+  </md-button>
+  <span>{{eventObject.eventName || "..."}}</span>
+  <span flex></span>
+  <md-button class="md-icon-button" ng-click="showShareDialog(eventObject.$id)">
+   <i class="material-icons">share</i>
+   <md-tooltip>Share</md-tooltip>
+  </md-button>
+  <md-menu md-position-mode="target-right target" width="4">
+   <md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="openMenuButton">
+    <img md-menu-origin ng-src="{{userObject.profilePictureUrl}}"></img>
+   </md-button>
+   <md-menu-content width="4">
+    <md-menu-item>
+     <md-button ng-click="linkToDashboard()">
+      <p>Dashboard</p>
+      <i class="material-icons">dashboard</i>
+     </md-button>
+    </md-menu-item>
+    <md-menu-item>
+     <md-button class="md-warn" ng-click="logout()">
+      <p>Logout</p>
+      <i class="material-icons menu-item-icon">exit_to_app</i>
+     </md-button>
+    </md-menu-item>
+   </md-menu-content>
+  </md-menu>
+ </div>
+</md-toolbar>
+
+<div hide-gt-md>
+ <md-tabs class="md-primary" md-selected="selectedTabIndex" md-border-bottom md-dynamic-height>
+  <md-tab label="Tips">
+   <p class="average-padding" ng-if="loaded && !tips">No tips ...</p>
+   <rate-it-feedback type="tips" object="eventObject" ownuid="{{userObject.$id}}"></rate-it-feedback>
+  </md-tab>
+  <md-tab label="Tops">
+   <p class="average-padding" ng-if="loaded && !tops">No tops ...</p>
+   <rate-it-feedback type="tops" object="eventObject" ownuid="{{userObject.$id}}"></rate-it-feedback>
+  </md-tab>
+  <md-tab label="Ratings">
+   <p class="average-padding" ng-show="loaded && !eventObject.ratings">No ratings ...</p>
+   <table>
+    <tr ng-show="eventObject.ratings" class="margin-tab-content">
+      <td class="average-padding">Average rating:</td>
+      <td><rate-it-score score="eventObject.avgRating"></rate-it-score></td>
+    </tr>
+   </table>
+   <md-divider ng-if="loaded && eventObject.avgRating"></md-divider>
+   <table>
+    <tr ng-repeat="(key, rating) in eventObject.ratings">
+     <td><rate-it-user uid="{{key}}" ownuid="{{userObject.$id}}"></rate-it-user></td>
+     <td><rate-it-score score="rating.rating"></rate-it-score></td>
+    </tr>
+   </table>
+  </md-tab>
+ </md-tabs>
+</div>
+
+<div ng-if="eventObject.ratings" layout="row" hide show-gt-md>
+ <p class="average-padding" ng-show="loaded && !eventObject.ratings">No ratings ...</p>
+ <div flex>
+  <md-card>
+   <md-toolbar class="md-toolbar-tools site-content-toolbar">
+    <span>Tips</span>
+   </md-toolbar>
+   <p class="average-padding" ng-if="loaded && !tips">No tips ...</p>
+    <rate-it-feedback type="tips" object="eventObject" ownuid="{{userObject.$id}}"></rate-it-feedback>
+  </md-card>
+ </div>
+ <div flex>
+  <md-card>
+   <md-toolbar class="md-toolbar-tools site-content-toolbar">
+    <span>Tops</span>
+   </md-toolbar>
+   <p class="average-padding" ng-if="loaded && !tops">No tops ...</p>
+   <rate-it-feedback type="tops" object="eventObject" ownuid="{{userObject.$id}}"></rate-it-feedback>
+  </md-card>
+ </div>
+ <div flex>
+  <md-card>
+   <md-toolbar class="md-toolbar-tools site-content-toolbar">
+    <span>Ratings</span>
+   </md-toolbar>
+   <table>
+    <tr ng-show="eventObject.ratings" class="margin-tab-content">
+     <td class="average-padding">Average rating:</td>
+     <td><rate-it-score score="eventObject.avgRating"></rate-it-score></td>
+    </tr>
+   </table>
+   <md-divider></md-divider>
+   <table>
+    <tr ng-repeat="(key, rating) in eventObject.ratings">
+     <td><rate-it-user uid="{{key}}" ownuid="{{userObject.$id}}"></rate-it-user></td>
+     <td><rate-it-score score="rating.rating"></rate-it-score></td>
+    </tr>
+   </table>
+  </md-card>
+ </div>
+</div>
