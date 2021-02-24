@@ -1,5 +1,5 @@
 # rate-it
-A web app for rating
+A web app for rating retrospectives
 
 #URL
 https://rate-it.firebaseapp.com/
